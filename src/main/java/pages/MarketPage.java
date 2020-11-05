@@ -1,12 +1,11 @@
 package pages;
 
+import io.qameta.allure.Step;
 import io.qameta.atlas.webdriver.AtlasWebElement;
-import io.qameta.atlas.webdriver.ElementsCollection;
 import io.qameta.atlas.webdriver.WebPage;
 import io.qameta.atlas.webdriver.extension.FindBy;
 import io.qameta.atlas.webdriver.extension.Param;
 import org.hamcrest.Matchers;
-import org.openqa.selenium.Keys;
 
 import java.util.NoSuchElementException;
 
@@ -15,13 +14,11 @@ public interface MarketPage extends BasePage, WebPage {
     @FindBy("//*[@title=\"Регион\"]")
     AtlasWebElement region();
 
-    @FindBy("//div[@tabindex=\"-1\"]//a")
-    ElementsCollection<AtlasWebElement> cities();
+    @FindBy("//li//a[contains(text(), '{{ text }}')]")
+    AtlasWebElement item(@Param("text") String text);
 
-    @FindBy("//*[contains(text(), '{{ text }}')]/../..")
-    AtlasWebElement city(@Param("text") String text);
-
-    default void changeCity(String firstLetters, String fullName) {
+    @Step("Выставляем город {1} по первым трем буквам: {0}")
+    default MarketPage changeCity(String firstLetters, String fullName) {
         region().waitUntil(Matchers.any(AtlasWebElement.class), 10);
         region().click();
         AtlasWebElement input = input("[@placeholder='Укажите другой регион']");
@@ -33,8 +30,22 @@ public interface MarketPage extends BasePage, WebPage {
         }
         input.click();
         input.sendKeys(firstLetters);
-        city(fullName).click();
-        region().sendKeys(Keys.ENTER);
+        element(fullName).click();
+        element("Продолжить с новым регионом").click();
+        return this;
+    }
+
+    @Step("Выбираем категорию: {0}")
+    default MarketPage changeCategory(String category){
+        element("Каталог").click();
+        element(category).click();
+        return this;
+    }
+
+    @Step("Выбираем раздел: {0}")
+    default MarketPage changeSubCategory(String subCategory){
+        item(subCategory).click();
+        return this;
     }
 
 }

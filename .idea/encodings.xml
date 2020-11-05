@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/parsing.xml" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/src/main/java/pages/BasePage.java" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/src/main/java/pages/YandexPage.java" charset="windows-1251" />
@@ -9,5 +10,6 @@
     <file url="file://$PROJECT_DIR$/src/test/java/MainTest.java" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/src/test/resources/application.properties" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/src/test/resources/webdrivers" charset="windows-1251" />
+    <file url="PROJECT" charset="windows-1251" />
   </component>
 </project>

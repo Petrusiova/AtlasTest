@@ -1,8 +1,8 @@
 package util;
 
+import io.qameta.allure.Step;
 import io.qameta.atlas.core.Atlas;
 import io.qameta.atlas.webdriver.WebDriverConfiguration;
-import io.qameta.atlas.webdriver.WebPage;
 import org.junit.jupiter.api.AfterAll;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.SiteList;
@@ -33,7 +33,11 @@ public class SetUp {
     }
 
     @AfterAll
-    public static void stopDriver() throws Exception {
-        chromeDriver.close();
+    @Step("Закрываем браузер")
+    static void closeBrowser() {
+        if (chromeDriver != null) {
+            chromeDriver.close();
+            chromeDriver.quit();
+        }
     }
 }

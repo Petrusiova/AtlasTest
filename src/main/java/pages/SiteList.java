@@ -14,4 +14,7 @@ public interface SiteList extends WebSite {
     @Page
     MarketPage onMarketPage();
 
+    @Page
+    CompTechPage onCompTechPage();
+
 }

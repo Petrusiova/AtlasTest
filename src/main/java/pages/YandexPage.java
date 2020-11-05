@@ -16,6 +16,7 @@ public interface YandexPage extends BasePage, WebPage {
 
     @Override
     default void open() {
+        getWrappedDriver().manage().window().maximize();
         open("https://yandex.ru");
     }
 
