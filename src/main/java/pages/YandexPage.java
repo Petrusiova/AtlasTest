@@ -4,6 +4,9 @@ import io.qameta.allure.Step;
 import io.qameta.atlas.webdriver.AtlasWebElement;
 import io.qameta.atlas.webdriver.WebPage;
 import io.qameta.atlas.webdriver.extension.FindBy;
+import org.hamcrest.Matcher;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 
 public interface YandexPage extends BasePage, WebPage {
@@ -25,7 +28,10 @@ public interface YandexPage extends BasePage, WebPage {
         open();
         input("").click();
         input("").sendKeys(search);
-        searchButton().click();
+        searchButton().should((Matchers.anything())).click();
+//        if (searchButton().isDisplayed()) {
+//            searchButton().click();
+//        }
         return this;
     }
 

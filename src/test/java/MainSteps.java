@@ -22,6 +22,15 @@ public class MainSteps extends SetUp {
                 .changeSubCategory(subCategory);
     }
 
+    @Step("Выбираем заданные характеристики: \nпроизводитель: {0}, \nминимальная цена: {1}, \nмаксимальная цена: {2}")
+    public void chooseCharacteristics(String manufacturer, String minPrice, String maxPrice, String resultCount, List<String> excludedVendors){
+        onPage().onCompTechPage()
+                .setProducer(manufacturer)
+                .setPrice(minPrice, maxPrice)
+                .setResultsCountOnPage(resultCount)
+                .excludeVendors(excludedVendors);
+    }
+
     @Step("Находим производителя в xml-файле")
     public List<String> searchElements(String filePath, String tagName){
         List<String> elements = new XmlDOMParser(filePath).getListElementsByTagName(tagName);
@@ -29,9 +38,10 @@ public class MainSteps extends SetUp {
         return elements;
     }
 
-    @Step("Выбираем производителя: {0}")
-    public void chooseManufacturer(String manufacturer){
-        onPage().onCompTechPage()
-                .manChoice(manufacturer);
+    @Step("Находим цену в xml-файле")
+    public static String searchPriceValue(String filePath, String tagName, String tagValue, String childTagName){
+        String element = new XmlDOMParser(filePath).getStringByNeighbourValue(tagName, tagValue, childTagName);
+        Assertions.assertFalse(element.isEmpty(), "Список значений тегов " + tagName + " пустой");
+        return element;
     }
 }

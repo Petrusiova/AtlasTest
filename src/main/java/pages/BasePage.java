@@ -15,7 +15,10 @@ public interface BasePage extends WebPage {
     AtlasWebElement input(@Param("text") String text);
 
     @FindBy("//*[contains(text(), '{{ text }}')]/../..")
-    AtlasWebElement element(@Param("text") String text);
+    AtlasWebElement getParentByElementText(@Param("text") String text);
+
+    @FindBy("//li//*[contains(text(), '{{ text }}')]")
+    AtlasWebElement liWithText(@Param("text") String text); // TODO: 07.11.2020 remove to unique interface
 
     default void closePreviousWindow() {
         WebDriver chromeDriver = getWrappedDriver();
